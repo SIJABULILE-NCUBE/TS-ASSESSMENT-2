@@ -5,14 +5,21 @@ export type CartItem = {
   quantity: number;
 };
 
+// currency is a union of just the two allowed strings, not a plain
+// string, so assigning "EUR" anywhere fails at compile time
 export type Cart = {
   items: CartItem[];
   currency: "ZAR" | "USD";
 };
 
+// has to stay pure - never touch the original cart, always return a new
+// one. that's why it's map/filter/spread everywhere instead of push or
+// direct mutation
 export function addItem(cart: Cart, item: CartItem): Cart {
   const existing = cart.items.find((i) => i.productId === item.productId);
   if (existing) {
+    // same product already in the cart, bump its quantity instead of
+    // adding a duplicate row
     return {
       ...cart,
       items: cart.items.map((i) =>
@@ -22,6 +29,7 @@ export function addItem(cart: Cart, item: CartItem): Cart {
       ),
     };
   }
+  // new product, just append it
   return { ...cart, items: [...cart.items, item] };
 }
 
