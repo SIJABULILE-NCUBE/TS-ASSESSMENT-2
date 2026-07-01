@@ -548,12 +548,4 @@ This document answers the required reflection questions on:
 
 
 
-GitHub:
-
-https://SIJABULILE-NCUBE/ts-assessment-2
-
-
-
-
-
 ---
